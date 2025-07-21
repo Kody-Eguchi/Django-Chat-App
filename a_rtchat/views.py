@@ -19,7 +19,7 @@ def chat_view(request):
             message.save()
             context = {
                 'message': message,
-                'user': request.user,
+                'user': request.user
             }
             return render(request, 'a_rtchat/partials/chat_message_p.html', context)
 

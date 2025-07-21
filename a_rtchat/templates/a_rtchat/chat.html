@@ -56,14 +56,14 @@
         <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
             <div class="flex flex-col gap-4 items-center rounded-xl px-2 py-2">
                 <form id="chat_message_form" class="w-full"
-                    hx-ext="ws"
-                    ws-connect="/ws/chatroom/{{ chatroom_name }}"
-                    ws-send 
-                    _="on htmx:wsAfterSend reset() me">
+                    hx-post="{% url 'home' %}"
+                    hx-target="#chat_messages"
+                    hx-swap="befireend"
+                    _="on htmx:afterRequest reset() me">
                     {% csrf_token %}
                     {{ form }}
                 </form>
-                <form id="chat_file_form" enctype="multipart/form-data" class="flex items-center w-full" 
+                <!-- <form id="chat_file_form" enctype="multipart/form-data" class="flex items-center w-full" 
                     hx-post=""
                     hx-target="#chat_messages"
                     hx-swap="beforeend" 
@@ -71,7 +71,7 @@
                     {% csrf_token %}
                     <input type="file" name="file" id="id_file" class="!bg-transparent text-gray-400">
                     <button type="submit" class="whitespace-nowrap !text-sm !py-3 !px-4 h-fit">Submit File</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
@@ -82,4 +82,18 @@
     {% endif %}
 </wrapper>
 
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+    function scrollToBottom(time=0) {
+        setTimeout(function() {
+            const container = document.getElementById('chat_container');
+            container.scrollTop = container.scrollHeight;
+        }, time);
+    }
+    scrollToBottom()
+
+</script>
 {% endblock %}
