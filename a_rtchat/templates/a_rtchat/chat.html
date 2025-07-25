@@ -59,7 +59,7 @@
                     hx-ext="ws"
                     ws-connect="/ws/chatroom/public-chat"
                     ws-send
-                    _="on htmx:wsAfeterSend reset() me">
+                    _="on htmx:wsAfterSend reset() me">
                     {% csrf_token %}
                     {{ form }}
                 </form>
